@@ -1,3 +1,4 @@
+
 package com.example.mykotlinapp
 
 import android.os.Bundle
@@ -81,16 +82,83 @@ class MainActivity : AppCompatActivity() {
 
         buttonGet.setOnClickListener {
             fun onClick(view: View) {
-get()
+                get()
             }
         }
 
         buttonPost.setOnClickListener {
             fun onClick(view: View) {
                 post()
+
             }
         }
     }
 
-        }
+}
 
+
+
+
+
+
+
+
+
+
+//
+//class MainActivity1 : AppCompatActivity() {
+//OkHttpClient client;
+//    String getURL= "https://demo.codeseasy.com/apis/okhttp/get.php?key_name=value";
+//    String postURL="https://demo.codeseasy.com/apis/okhttp/post.php";
+//    TextView  textView;
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        client = new OkHttpClient ();
+//        textView - findViewById(R.id.textData);
+//        Button buttonGet = findViewById (R.id.btnGet);
+//        Button buttonPost = findViewById (R.id.btnPost);
+//
+//        buttonGet.setOnClickListener(new View . OnClickListener (){
+//            @Override
+//            public void onClick(View view) {
+//              get();
+//            }
+//        }
+//        );
+//        buttonPost.setOnClickListener(new View . OnClickListener (){
+//            @Override
+//            public void onClick(View view) {
+//              post();
+//            }
+//        }
+//        );
+//    }
+//    public  void post() {
+//        RequestBody requestBody = new FormBody.Builder()
+//            .add("key_name","Demo Value").build();
+//        Request request = new Request.Builder().url(postURL).post(requestBody).build();
+//        client.newCall(request).equeue(new Callback()){
+//            @Override
+//            public void onFailure(@NonNull Call call,@NonNull IOException e){
+//                e.printStackTrace();
+//            }
+//            @Override
+//            public void onResponse(@NonNull Call call,@NonNull Response response)throws IOException{
+//                runOnUiThread(new Runnable(){
+//                    @Override
+//                    public void run(){
+//                        try {
+//                            textView.setText(response.body().string());
+//                        }catch (IOException e){
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//            }
+//        }
+//
+//
+//    }
+//    }
