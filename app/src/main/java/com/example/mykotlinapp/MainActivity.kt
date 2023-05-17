@@ -2,48 +2,69 @@ package com.example.mykotlinapp
 
 
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.GsonBuilder
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-class POK(val result:Array<String>)
-class Result(var name:String,var url:String)
+
+//class POK(val result:Array<String>)
+//class Result(var name:String,var url:String)
+
+
 class MainActivity : AppCompatActivity() {
-    private var mTextViewResult: TextView? = null
-    var myResponse: String? =null
+    var mTextViewResult: TextView? = null
+   // var myResponse : String? = null
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mTextViewResult = findViewById<TextView>(R.id.text_view_result)
+        mTextViewResult = findViewById<TextView>(R.id.pokemons_list)
         val client = OkHttpClient()
         val request: Request = Request.Builder()
             .url("https://pokeapi.co/api/v2/pokemon")
             .build()
         client.newCall(request).enqueue(object : Callback {
-            override  fun onFailure(call: Call, e: IOException) {
+            override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
             }
 
             @Throws(java.io.IOException::class)
-            override  fun onResponse(call: Call, response: Response) {
+            override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
+
                     val myResponse = response.body!!.string()
-                    println(myResponse)
-                    val gson=GsonBuilder().create()
-                    val  pokeFeed =gson.fromJson(myResponse,POK::class.java)
-                    //runOnUiThread { mTextViewResult?.setText(myResponse)
-                 }
+//                    println(myResponse)
+                    val arr = ArrayList<String>()
+                    val jsonObject = JSONObject(myResponse)
+                    val jsonArray = jsonObject.getJSONArray("results")
+
+
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObjects = jsonArray.getJSONObject(i)
+                        val url = jsonObjects.get("url")
+                        val name = jsonObjects.get("name")
+
+                        arr.add(url as String)
+                        arr.add(name as String)
+                    }
+                    mTextViewResult!!.text = arr.toString()
+
+
+                }
+
+                // var data: List<Objects>? = null
+
+
+                //mTextViewResult!!.text = resultData.toString()
+
 
 //                    fun getTextResponse(responseJson: JSONObject): Array<String?> {
 //                        val resultData = responseJson.getJSONArray(myResponse)
@@ -65,8 +86,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-
-
 //        val pokemonsJSONArray = JSONArray(request.body.toString())
 //        (0 until pokemonsJSONArray.length()).forEach {
 //            val pokemon = pokemonsJSONArray.getJSONObject(it)
@@ -86,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 //        mTextViewResult!!.text = data.toString()
 
 
-       // mTextViewResult!!.text = resultData.toString()
+        // mTextViewResult!!.text = resultData.toString()
     }
 }
 
@@ -175,11 +194,8 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
-
-
-
-
-
+//val gson=GsonBuilder().create()
+//val  pokeFeed =gson.fromJson(myResponse,POK::class.java)
 
 
 
