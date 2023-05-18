@@ -1,71 +1,61 @@
 package com.example.mykotlinapp
 
-
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import org.json.JSONObject
-import java.io.IOException
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mykotlinapp.adapter.PokemonAdapter
+import com.example.mykotlinapp.databinding.ActivityMainBinding
+import com.example.mykotlinapp.model.Pokemon
+import com.example.mykotlinapp.network.PokemonAPIService
 
 
 //class POK(val result:Array<String>)
 //class Result(var name:String,var url:String)
 
-
 class MainActivity : AppCompatActivity() {
-    var mTextViewResult: TextView? = null
-   // var myResponse : String? = null
-
-
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: PokemonAdapter // Объект Adapter
+    private val pokemonService: PokemonAPIService // Объект PoukemonAPiService
+        get() = (applicationContext as App).pokemonService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        mTextViewResult = findViewById<TextView>(R.id.pokemons_list)
-        val client = OkHttpClient()
-        val request: Request = Request.Builder()
-            .url("https://pokeapi.co/api/v2/pokemon")
-            .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            @Throws(java.io.IOException::class)
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-
-                    val myResponse = response.body!!.string()
-//                    println(myResponse)
-                    val arr = ArrayList<String>()
-                    val jsonObject = JSONObject(myResponse)
-                    val jsonArray = jsonObject.getJSONArray("results")
+        val manager = LinearLayoutManager(this) // LayoutManager
+        adapter = PokemonAdapter() // Создание объекта
+       // adapter.data = pokemonService.getPersons() // Заполнение данными
+        adapter.data = pokemonService.arr as List<Pokemon>
+        //???/
+        binding.recyclerView.layoutManager = manager // Назначение LayoutManager для RecyclerView
+        binding.recyclerView.adapter = adapter // Назначение адаптера для RecyclerView
+    }
+}
 
 
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObjects = jsonArray.getJSONObject(i)
-                        val url = jsonObjects.get("url")
-                        val name = jsonObjects.get("name")
-
-                        arr.add(url as String)
-                        arr.add(name as String)
-                    }
-                    mTextViewResult!!.text = arr.toString()
 
 
-                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 // var data: List<Objects>? = null
-
-
                 //mTextViewResult!!.text = resultData.toString()
-
-
 //                    fun getTextResponse(responseJson: JSONObject): Array<String?> {
 //                        val resultData = responseJson.getJSONArray(myResponse)
 //                            .getJSONObject(0)
@@ -81,10 +71,6 @@ class MainActivity : AppCompatActivity() {
 //                        runOnUiThread { mTextViewResult?.setText(resultData.toString()) }
 //                    }
 //                }
-
-            }
-        })
-
 
 //        val pokemonsJSONArray = JSONArray(request.body.toString())
 //        (0 until pokemonsJSONArray.length()).forEach {
@@ -106,8 +92,6 @@ class MainActivity : AppCompatActivity() {
 
 
         // mTextViewResult!!.text = resultData.toString()
-    }
-}
 
 
 //        val client = OkHttpClient()

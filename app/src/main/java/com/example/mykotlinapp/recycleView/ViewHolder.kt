@@ -6,5 +6,5 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mykotlinapp.R
 
 class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-    val textView: TextView = itemView.findViewById(R.id.pokemons_fields)
+    val textView: TextView = itemView.findViewById(R.id.companyTextView)
 }

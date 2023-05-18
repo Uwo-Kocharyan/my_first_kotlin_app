@@ -1,6 +1,6 @@
 package com.example.mykotlinapp.model
 
-class Pokemon {
+data class Pokemon (
     /*  public int id { get; set; }
     public string num { get; set; }
     public string name { get; set; }
@@ -21,10 +21,13 @@ class Pokemon {
     }
    */
 
-//    var id: Int = 0
+    //    var id: Int = 0
 //    var num: String? = null
-    var name: String? = null
-    var url: String? = null
+    var name: String? = null,
+    var url: String? = null,
+    var image: String? = null,
+)
+
 //    var img: String? = null
 //    var type: List<String>? = null
 //    var height: String? = null
@@ -37,4 +40,3 @@ class Pokemon {
 //    var spawn_time:String? = null
 //    var multipliers:List<Double>?=null
 //    var weaknesses:List<String>?=null
-}

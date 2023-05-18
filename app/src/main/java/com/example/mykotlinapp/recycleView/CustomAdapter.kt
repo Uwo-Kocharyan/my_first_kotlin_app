@@ -15,7 +15,7 @@ class CustomAdapter(private val mList: List<Pokemon>) : RecyclerView.Adapter<Cus
         // inflates the card_view_design view
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recyclerview_row, parent, false)
+            .inflate(R.layout.item_pokemon, parent, false)
 
         return ViewHolder(view)
     }
@@ -40,6 +40,6 @@ class CustomAdapter(private val mList: List<Pokemon>) : RecyclerView.Adapter<Cus
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val textView: TextView = itemView.findViewById(R.id.pokemons_fields)
+        val textView: TextView = itemView.findViewById(R.id.nameTextView)
     }
 }
