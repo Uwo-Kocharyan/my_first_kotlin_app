@@ -17,6 +17,7 @@ class PokemonAPIService {
     fun requestPokApi() {
         val client = OkHttpClient()
         val request: Request = Request.Builder()
+
             // .url("https://pokeapi.co/api/v2/pokemon")
             .url("https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json")
             .build()
@@ -25,19 +26,30 @@ class PokemonAPIService {
                 e.printStackTrace()
             }
 
+            @Throws(java.io.IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val myResponse = response.body!!.string()
+
                     val jsonObject = JSONObject(myResponse)
                     val jsonArray = jsonObject.getJSONArray("pokemon")
+
                     for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
-                        arr.add(jsonObject.getString("name"))
-                        arr.add(jsonObject.getString("image"))
+                        val jsonObjects = jsonArray.getJSONObject(i)
+
+                        val name = jsonObjects.get("name")
+                        val image = jsonObjects.get("image")
+
+                        arr.add(image as String)
+                        arr.add(name as String)
                     }
+                    // mTextViewResult!!.text = arr.toString()
                 }
             }
         }
         )
     }
 }
+
+
+
