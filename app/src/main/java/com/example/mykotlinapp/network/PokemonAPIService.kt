@@ -12,12 +12,10 @@ import java.io.IOException
 
 
 class PokemonAPIService {
-
     val arr = ArrayList<String>()
     fun requestPokApi() {
         val client = OkHttpClient()
         val request: Request = Request.Builder()
-
             // .url("https://pokeapi.co/api/v2/pokemon")
             .url("https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json")
             .build()
@@ -30,7 +28,6 @@ class PokemonAPIService {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val myResponse = response.body!!.string()
-
                     val jsonObject = JSONObject(myResponse)
                     val jsonArray = jsonObject.getJSONArray("pokemon")
 
