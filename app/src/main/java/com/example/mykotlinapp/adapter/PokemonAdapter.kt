@@ -1,11 +1,15 @@
 package com.example.mykotlinapp.adapter
 
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mykotlinapp.R
+import com.example.mykotlinapp.constant.BLUE
+import com.example.mykotlinapp.constant.YELLOW
+
 
 import com.example.mykotlinapp.databinding.ItemPokemonBinding
 import com.example.mykotlinapp.model.Pokemon
@@ -34,20 +38,23 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
 
         if (position % 2 == 1) {
             holder.binding.nameTextView.setBackgroundColor(
-                ContextCompat.getColor(
-                    holder.binding.itemPokemon.context,
-                    androidx.appcompat.R.color.background_material_dark
-                )
+                Color.parseColor(BLUE)
             )
             holder.binding.iconView.setImageDrawable(
-                ContextCompat.getDrawable( holder.binding.itemPokemon.context, androidx.core.R.drawable.ic_call_answer)
+                ContextCompat.getDrawable( holder.binding.itemPokemon.context, R.drawable.avatar)
             )
-
             holder.binding.nameTextView.setTextColor(
                 ContextCompat.getColor(
                     holder.binding.itemPokemon.context,
-                    androidx.appcompat.R.color.abc_primary_text_material_dark
+                    R.color.white
                 )
+            )
+        }else{
+            holder.binding.iconView.setImageDrawable(
+                ContextCompat.getDrawable( holder.binding.itemPokemon.context, R.drawable.avatar_male)
+            )
+            holder.binding.nameTextView.setBackgroundColor(
+                        Color.parseColor(YELLOW)
             )
         }
 
