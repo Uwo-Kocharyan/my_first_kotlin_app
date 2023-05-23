@@ -1,6 +1,6 @@
 package com.example.mykotlinapp.model
 
-data class Pokemon (
+data class Users (
     var name: String? = null,
     var url: String? = null,
     var image: String? = null,

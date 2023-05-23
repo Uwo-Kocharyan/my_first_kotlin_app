@@ -4,63 +4,62 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mykotlinapp.adapter.PokemonAdapter
+import com.example.mykotlinapp.adapter.UserAdapter
 import com.example.mykotlinapp.databinding.ActivityMainBinding
-import com.example.mykotlinapp.model.Pokemon
+import com.example.mykotlinapp.model.Users
 
 
 class MainActivity : AppCompatActivity() {
-    var TAG ="lifecycle"
+    private var tAG = "lifecycle"
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: PokemonAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = PokemonAdapter().apply {
+        val adapter = UserAdapter().apply {
             data = listOf(
-                Pokemon("name1"),
-                Pokemon("name2"),
-                Pokemon("name3"),
-                Pokemon("name4"),
-                Pokemon("name5"),
-                Pokemon("name6"),
-                Pokemon("name7"),
-                Pokemon("name8"),
-                Pokemon("name9"),
+                Users("name1"),
+                Users("name2"),
+                Users("name3"),
+                Users("name4"),
+                Users("name5"),
+                Users("name6"),
+                Users("name7"),
+                Users("name8"),
+                Users("name9"),
             )
             notifyDataSetChanged()
         }
         binding.recyclerView.adapter = adapter
-        Log.d(TAG,"Activity created")
+        Log.d(tAG, "Activity created")
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG,"Activity started")
+        Log.d(tAG, "Activity started")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG,"Activity focused")
+        Log.d(tAG, "Activity focused")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG,"Activity paused")
+        Log.d(tAG, "Activity paused")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(TAG,"Activity stoped")
+        Log.d(tAG, "Activity stoped")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG,"Activity killed")
+        Log.d(tAG, "Activity killed")
     }
 
 
