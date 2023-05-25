@@ -27,8 +27,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val pokemon = data[position]
-        holder.binding.nameTextView.text = pokemon.name
+        val users = data[position]
+        holder.binding.nameTextView.text = users.name
 
         val backgroundColor: Int = if (position % 2 == 1) Color.BLUE else Color.YELLOW
         val textColor: Int = if (position % 2 == 1) Color.WHITE else Color.BLACK
@@ -42,17 +42,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 ContextCompat.getDrawable(holder.binding.itemPokemon.context, avatar)
             )
             holder.itemView.setOnClickListener {
-                if (position % 2 == 0)
                     Toast.makeText(
                         holder.binding.itemPokemon.context,
-                        "Cell clicked odd numbered user",
+                        "Cell clicked ${position + 1} numbered user",
                         Toast.LENGTH_SHORT
                     ).show()
-                else Toast.makeText(
-                    holder.binding.itemPokemon.context,
-                    "Cell clicked even numbered user",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
 
