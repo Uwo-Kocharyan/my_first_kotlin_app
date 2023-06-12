@@ -13,8 +13,6 @@ import java.io.IOException
 
 class PokemonAPIService {
     val client = OkHttpClient()
-
-
     fun requestPokApi(
         onResponse: (List<Pokemon>) -> Unit
     ): List<Pokemon> {
@@ -32,7 +30,7 @@ class PokemonAPIService {
                     val jsonObject = JSONObject(myResponse)
                     val jsonArray = jsonObject.getJSONArray("pokemon")
 
-                    for (i in 0 until jsonArray.length()-144) {
+                    for (i in 0 until jsonArray.length()) {
                         val jsonObjects = jsonArray.getJSONObject(i)
                         val name: String = jsonObjects.get("name") as String
                         pokArray.add(Pokemon(name = name))
