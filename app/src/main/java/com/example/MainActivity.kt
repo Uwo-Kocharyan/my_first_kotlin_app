@@ -1,4 +1,4 @@
-package com.example.mykotlinapp
+package com.example
 
 import UserAdapter1
 import android.os.Bundle

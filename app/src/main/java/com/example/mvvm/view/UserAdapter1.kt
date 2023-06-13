@@ -23,7 +23,12 @@ class UserAdapter1 : RecyclerView.Adapter<UserAdapter1.UserHolder>() {
     override fun onBindViewHolder(viewHolder: UserAdapter1.UserHolder, position: Int) {
         val user = users[position]
         viewHolder.binding.nameTextView.text = user.name
-
+        val avatar: Int = if (position % 2 == 1) R.drawable.avatar else R.drawable.avatar_male
+        viewHolder.binding.apply {
+            iconView.setImageDrawable(
+                ContextCompat.getDrawable(viewHolder.binding.itemPokemon.context, avatar)
+            )
+        }
     }
 
     override fun getItemCount() = users.size
