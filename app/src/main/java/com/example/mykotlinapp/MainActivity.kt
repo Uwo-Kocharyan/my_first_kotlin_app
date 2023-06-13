@@ -4,61 +4,39 @@ import UserAdapter1
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mvvm.viewModel.UseriewModel
-import com.example.mykotlinapp.adapter.PokemonAdapter
-import com.example.mykotlinapp.adapter.UserAdapter
+import com.example.mvvm.viewModel.UserViewModel
 import com.example.mykotlinapp.databinding.ActivityMainBinding
-import com.example.mykotlinapp.network.PokemonAPIService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
 
     //  var mTextViewResult: RecyclerView? = null
     private lateinit var binding: ActivityMainBinding
-    var pokAPI = PokemonAPIService()
+//    var pokAPI = PokemonAPIService()
+    //        val adapter1 = PokemonAdapter()
 
-    // TODO:  create viewmodel
-    var userVM : UseriewModel? =null
+    private var userVM: UserViewModel? = null
+    private val adapter1 = UserAdapter1()
 
-     val userViewModel : UseriewModel? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        userVM = ViewModelProvider(this)[UserViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        -----------
-        binding.updateBtn.setOnClickListener {
-            userVM?.userList
-        }
-//        -----------
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        val adapter1 = PokemonAdapter()
-        val adapter1 = UserAdapter1()
-        userViewModel?.getListUsers()?.observe(this, Observer {
-            it?.let {
-                adapter1.refreshUsers(it)
-            }
-        })
-        // TODO: obsderve and update UI
-         userVM?.userList?.observe(this){
-             binding.updateBtn.setOnClickListener {
-                 userVM?.updateListUsers()
-             }
-
-
-         }
-        // UPDATE ADAPTER LIST
-//
-//    }
         binding.recyclerView.adapter = adapter1
 
+        binding.updateBtn.setOnClickListener {
+            userVM?.updateListUsers()
+        }
+
+        userVM?.userList?.observe(this) {
+            adapter1.refreshUsers(it)
+        }
 //        GlobalScope.launch(Dispatchers.IO) {
 //            pokAPI.requestPokApi(
 //                onResponse = {
