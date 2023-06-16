@@ -14,6 +14,8 @@ object PokemonMVVM_data {
 //        PokemonMVVM().name = PokemonAPIServiceMVVM().pokArray
     )
     fun getImg() = listOf(
+
+        
         PokemonMVVM().img
     )
 }
