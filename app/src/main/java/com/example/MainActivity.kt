@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvm.viewModel.UserViewModel
+import com.example.mvvm_api_request.view.PokemonMVVM_adapter
+import com.example.mvvm_api_request.viewModel.PokemonMVVM_View_Model
 import com.example.mykotlinapp.databinding.ActivityMainBinding
 
 
@@ -18,7 +20,9 @@ class MainActivity : AppCompatActivity() {
     //        val adapter1 = PokemonAdapter()
 
     private var userVM: UserViewModel? = null
+    private var pokVM: PokemonMVVM_View_Model? = null
     private val adapter1 = UserAdapter1()
+    private val adapterPok = PokemonMVVM_adapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +32,14 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter1
+        binding.recyclerView.adapter = adapterPok
 
         binding.updateBtn.setOnClickListener {
-            userVM?.updateListUsers()
+            pokVM?.updateListPokemons()
         }
 
-        userVM?.userList?.observe(this) {
-            adapter1.refreshUsers(it)
+        pokVM?.pokemo_mvvm_List?.observe(this) {
+            adapterPok.refreshPoks(it)
         }
 //        GlobalScope.launch(Dispatchers.IO) {
 //            pokAPI.requestPokApi(
