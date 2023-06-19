@@ -7,9 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvm.viewModel.UserViewModel
+import com.example.mvvm_api_request.model.PokemonAPIServiceMVVM
+import com.example.mvvm_api_request.model.PokemonMVVM
 import com.example.mvvm_api_request.view.PokemonMVVM_adapter
 import com.example.mvvm_api_request.viewModel.PokemonMVVM_View_Model
 import com.example.mykotlinapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +23,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 //    var pokAPI = PokemonAPIService()
     //        val adapter1 = PokemonAdapter()
+private var pokAPIMvvM: PokemonAPIServiceMVVM?=null
 
     private var userVM: UserViewModel? = null
-    private var pokVM: PokemonMVVM_View_Model? = null
+    private var pokVM: PokemonMVVM_View_Model = PokemonMVVM_View_Model()
     private val adapter1 = UserAdapter1()
     private val adapterPok = PokemonMVVM_adapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userVM = ViewModelProvider(this)[UserViewModel::class.java]
+//        userVM = ViewModelProvider(this)[UserViewModel::class.java]
+        pokVM = ViewModelProvider(this)[PokemonMVVM_View_Model::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -35,18 +42,22 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapterPok
 
         binding.updateBtn.setOnClickListener {
+            Log.d(tAG, "abababaaaaaaaaaa")
             pokVM?.updateListPokemons()
         }
 
-        pokVM?.pokemo_mvvm_List?.observe(this) {
-            adapterPok.refreshPoks(it)
+        pokVM?.pokemon_mvvm_List?.observe(this) {
+            adapterPok.refreshPoks(it as List<PokemonMVVM>)
         }
+
+
+
 //        GlobalScope.launch(Dispatchers.IO) {
-//            pokAPI.requestPokApi(
+//            pokAPIMvvM!!.requestPokApi(
 //                onResponse = {
 //                    runOnUiThread {
-//                        adapter1.data = it
-//                        adapter1.notifyDataSetChanged()
+//                        adapterPok.pokemonMVVMs = it
+//                        adapterPok.notifyDataSetChanged()
 //                    }
 //
 //                }

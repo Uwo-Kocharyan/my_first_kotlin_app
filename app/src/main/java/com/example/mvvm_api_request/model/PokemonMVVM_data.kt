@@ -1,5 +1,6 @@
 package com.example.mvvm_api_request.model
 
+import android.util.Log
 import com.example.mykotlinapp.model.Pokemon
 import okhttp3.Call
 import okhttp3.Callback
@@ -10,14 +11,17 @@ import org.json.JSONObject
 import java.io.IOException
 
 object PokemonMVVM_data {
-    fun getName() = listOf<PokemonMVVM>(
+  var pokApi:  PokemonAPIServiceMVVM? =PokemonAPIServiceMVVM()
+    fun getName() {
+        listOf(
+            pokApi?.pokArray
+        )
+    }
 //        PokemonMVVM().name = PokemonAPIServiceMVVM().pokArray
-    )
-    fun getImg() = listOf(
 
-        
-        PokemonMVVM().img
-    )
+//    fun getImg() = listOf(
+//        PokemonMVVM().img
+//    )
 }
 
 
@@ -39,17 +43,12 @@ class PokemonAPIServiceMVVM {
                     val myResponse = response.body!!.string()
                     val jsonObject = JSONObject(myResponse)
                     val jsonArray = jsonObject.getJSONArray("pokemon")
-                    val jsonArrayImg = jsonObject.getJSONArray("img")
+//                    val jsonArrayImg = jsonObject.getJSONArray("img")
 
                     for (i in 0 until jsonArray.length()) {
                         val jsonObjects = jsonArray.getJSONObject(i)
                         val name: String = jsonObjects.get("name") as String
                         pokArray.add(PokemonMVVM(name = name))
-                    }
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObjects = jsonArray.getJSONObject(i)
-                        val img: String = jsonObjects.get("img") as String
-                        pokArray.add(PokemonMVVM(img = img))
                     }
                     onResponse(pokArray)
                 }

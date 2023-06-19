@@ -33,7 +33,7 @@ class PokemonMVVM_adapter: RecyclerView.Adapter<PokemonMVVM_adapter.PokemonMVVMH
     override fun onBindViewHolder(holder: PokemonMVVMHolder, position: Int) {
         val user = pokemonMVVMs[position]
         holder.binding.nameTextView.text = user.name
-        holder.binding.iconView.setImageURI( user.img as Uri)
+//        holder.binding.iconView.setImageURI( user.img as Uri)
 //        val avatar: Uri = if (position % 2 == 1)  else R.drawable.avatar_male
 //        holder.binding.apply {
 //            iconView.setImageDrawable(

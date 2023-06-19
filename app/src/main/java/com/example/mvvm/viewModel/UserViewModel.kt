@@ -7,7 +7,7 @@ import com.example.mvvm.model.UserData
 
 class UserViewModel: ViewModel() {
 
-   public val userList : MutableLiveData<List<User>> = MutableLiveData(listOf())
+    val userList : MutableLiveData<List<User>> = MutableLiveData(listOf())
     init {
         userList.value = UserData.getUsers()
     }
