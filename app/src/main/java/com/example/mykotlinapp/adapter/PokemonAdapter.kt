@@ -1,17 +1,18 @@
 package com.example.mykotlinapp.adapter
 
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.mykotlinapp.R
 import com.example.mykotlinapp.databinding.ItemPokemonBinding
 import com.example.mykotlinapp.model.Pokemon
-import com.example.mykotlinapp.network.PokemonAPIService
 
-class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+class PokemonAdapter(private  val context: Context) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
 
     class PokemonViewHolder(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
@@ -22,7 +23,7 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
         return PokemonViewHolder(binding)
     }
 
-     var array: List<Pokemon> = listOf()
+    var array: List<Pokemon> = listOf()
 
 
     override fun getItemCount(): Int = array.size
@@ -30,6 +31,11 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         val pokemons = array[position]
         holder.binding.nameTextView.text = pokemons.name
+        Glide.with(context)
+            .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbAFuTL-Ge7ResY7T_F-Acl6wlBIrqUB9DOg&usqp=CAU")
+            .error(R.drawable.avatar)
+            .placeholder(R.drawable.avatar_male)
+            .into(holder.binding.iconView)
 
 
         val backgroundColor: Int = if (position % 2 == 1) Color.BLUE else Color.YELLOW

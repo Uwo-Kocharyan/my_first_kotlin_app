@@ -13,33 +13,25 @@ import java.io.IOException
 
 class PokemonAPIService {
     val client = OkHttpClient()
-    fun requestPokApi(
-        onResponse: (List<Pokemon>) -> Unit
-    ): List<Pokemon> {
+
+   suspend fun getAllPoks(): List<Pokemon> {
         var pokArray = ArrayList<Pokemon>()
+
         val request: Request = Request.Builder()
             .url("https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json")
             .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    val myResponse = response.body!!.string()
-                    val jsonObject = JSONObject(myResponse)
-                    val jsonArray = jsonObject.getJSONArray("pokemon")
-
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObjects = jsonArray.getJSONObject(i)
-                        val name: String = jsonObjects.get("name") as String
-                        pokArray.add(Pokemon(name = name))
-                    }
-                    onResponse(pokArray)
-                }
-            }
-        }
-        )
+       val response = client.newCall(request).execute()
+       if (response.isSuccessful){
+           val myResponse = response.body!!.string()
+           val jsonObject = JSONObject(myResponse)
+           val jsonArray = jsonObject.getJSONArray("pokemon")
+           for (i in 0 until jsonArray.length() - 130 ) {
+               val jsonObjects = jsonArray.getJSONObject(i)
+               val name: String = jsonObjects.getString("name")
+               val img: String = jsonObjects.getString("img")
+               pokArray.add(Pokemon(name = name, img = img))
+           }
+       }
         return pokArray
     }
 }
