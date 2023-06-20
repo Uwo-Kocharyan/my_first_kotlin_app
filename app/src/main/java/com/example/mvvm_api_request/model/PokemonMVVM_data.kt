@@ -13,7 +13,7 @@ import java.io.IOException
 
 object PokemonMVVM_data {
     var pokApi: PokemonAPIServiceMVVM? = PokemonAPIServiceMVVM()
-    private val adapterPok = PokemonMVVM_adapter()
+     val adapterPok = PokemonMVVM_adapter()
     fun getName() {
         listOf(pokApi?.requestPokApi { adapterPok.pokemonMVVMs = it })
         println("fun get name")

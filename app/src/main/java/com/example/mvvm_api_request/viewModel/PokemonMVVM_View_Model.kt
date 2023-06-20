@@ -13,6 +13,7 @@ class PokemonMVVM_View_Model: ViewModel() {
      val pokemon_mvvm_List: MutableLiveData<List<PokemonMVVM>> = MutableLiveData(listOf())
 
     init {
+        pokemon_mvvm_List.value=PokemonMVVM_data.pokApi!!.requestPokApi {  }
         pokemon_mvvm_List.apply {
             PokemonMVVM_data.getName()
             println("fun get name in init bock")
