@@ -4,6 +4,7 @@ import UserAdapter1
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvm.viewModel.UserViewModel
@@ -41,14 +42,17 @@ private var pokAPIMvvM: PokemonAPIServiceMVVM?=null
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapterPok
 
-        binding.updateBtn.setOnClickListener {
-            Log.d(tAG, "abababaaaaaaaaaa")
-            pokVM?.updateListPokemons()
-        }
+//        binding.updateBtn.setOnClickListener {
+//            Log.d(tAG, "abababaaaaaaaaaa")
+//            pokVM?.updateListPokemons()
+//        }
 
-        pokVM?.pokemon_mvvm_List?.observe(this) {
-            adapterPok.refreshPoks(it as List<PokemonMVVM>)
+        pokVM?.pokemon_mvvm_List?.observe(this, Observer {
+            it?.let {
+                adapterPok.refreshPoks(it)
+            }
         }
+            )
 
 
 

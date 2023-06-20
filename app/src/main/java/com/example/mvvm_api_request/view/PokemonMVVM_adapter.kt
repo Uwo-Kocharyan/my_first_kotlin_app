@@ -1,6 +1,7 @@
 package com.example.mvvm_api_request.view
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -20,6 +21,7 @@ class PokemonMVVM_adapter: RecyclerView.Adapter<PokemonMVVM_adapter.PokemonMVVMH
 
     fun refreshPoks(poks: List<PokemonMVVM>) {
         this.pokemonMVVMs = poks
+        Log.d("lifecycle", poks.size.toString())
         notifyDataSetChanged()
     }
 
