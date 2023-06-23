@@ -25,7 +25,7 @@ class PokemonAPIService {
            val myResponse = response.body!!.string()
            val jsonObject = JSONObject(myResponse)
            val jsonArray = jsonObject.getJSONArray("pokemon")
-           for (i in 0 until jsonArray.length() - 130 ) {
+           for (i in 0 until jsonArray.length() - 135 ) {
                val jsonObjects = jsonArray.getJSONObject(i)
                val name: String = jsonObjects.getString("name")
                val img: String = jsonObjects.getString("img")
