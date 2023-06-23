@@ -20,6 +20,13 @@ class PokemonViewModel() : ViewModel() {
 
     fun getPokemons() {
         viewModelScope.launch(Dispatchers.IO) {
+            val poks = apiService?.getFifePoks()
+            pokemonLiveData.postValue(poks)
+        }
+    }
+
+    fun updatePokemons(){
+        viewModelScope.launch(Dispatchers.IO) {
             val poks = apiService?.getAllPoks()
             pokemonLiveData.postValue(poks)
         }

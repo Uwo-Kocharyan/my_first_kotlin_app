@@ -1,6 +1,7 @@
 package com.example
 
 import android.os.Bundle
+import android.view.View.OnLongClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,5 +28,15 @@ class MainActivity : AppCompatActivity() {
             pokemonAdapter.array = it
             pokemonAdapter.notifyDataSetChanged()
         }
+
+        binding.updateBtn.setOnClickListener {
+                pokemonViewModel!!.updatePokemons()
+                pokemonAdapter.notifyDataSetChanged()
+        }
+        binding.restartBtn.setOnClickListener {
+            pokemonViewModel!!.getPokemons()
+            pokemonAdapter.notifyDataSetChanged()
+        }
+
     }
 }
